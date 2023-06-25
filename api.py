@@ -2,14 +2,11 @@ from flask import Flask, request, jsonify
 import joblib
 import pandas as pd
 from pathlib import Path
-import gzip
+
 
 app = Flask(__name__)
 
-def decompress_file(file_path):
-    with gzip.open(file_path, 'rb') as f_in:
-        with open('output_file.pkl', 'wb') as f_out:
-            f_out.write(f_in.read())
+
 
 # Obtenir le chemin complet du répertoire actuel
 THIS_FOLDER = Path(__file__).parent.resolve()
@@ -29,9 +26,9 @@ X_train = pd.read_csv(xtrain_path)
 # Fusionner X_train avec les données d'ID
 X_train = pd.merge(X_train, data[['SK_ID_CURR']], left_index=True, right_index=True)
 
-shap_values_path = THIS_FOLDER / 'shap_values.pkl.gz'
-decompress_file(shap_values_path)
-shap_values = joblib.load(THIS_FOLDER / 'output_file.pkl')
+shap_values_path = THIS_FOLDER / 'shap_valuesxz.pkl'
+
+shap_values = joblib.load(shap_values_path)
 
 
 # Récupérer les noms des fonctionnalités
