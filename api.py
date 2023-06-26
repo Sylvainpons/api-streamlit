@@ -81,5 +81,18 @@ def get_data():
 
     return jsonify(shap_data)
 
+@app.route('/all_data', methods=['POST'])
+def get_all_data():
+    try:
+        # Récupérer les valeurs SHAP de tous les clients
+        all_shap_values = shap_values.values()
+
+        # Créer un dictionnaire contenant les fonctionnalités et la distribution totale
+        distribution_data = {'Fonctionnalités': features, 'Distribution totale': all_shap_values}
+
+        return jsonify(distribution_data)
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
 if __name__ == '__main__':
     app.run()
