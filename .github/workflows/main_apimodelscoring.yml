@@ -61,3 +61,4 @@ jobs:
           app-name: 'apimodelscoring'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_034D050B47A14ECD8833AC5D167B9568 }}
+          package: ./api.py
