@@ -2,8 +2,17 @@ from flask import Flask, request, jsonify
 import joblib
 import pandas as pd
 from pathlib import Path
-
+import git
 app = Flask(__name__)
+
+@app.route('/update_server', methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('path/to/git_repo')
+        origin = repo.remotes.origin
+    origin.pull()
+    return 'Updated PythonAnywhere successfully', 200
+
 
 # Obtenir le chemin complet du répertoire actuel
 THIS_FOLDER = Path(__file__).parent.resolve()
@@ -30,6 +39,9 @@ shap_values = joblib.load(shap_values_path)
 
 # Récupérer les noms des fonctionnalités
 features = X_train.columns.tolist()
+
+
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -90,6 +102,8 @@ def get_all_data():
         return jsonify(distribution_data)
     except Exception as e:
         return jsonify({'error': str(e)})
+    
+
 
 if __name__ == '__main__':
     app.run()
