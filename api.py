@@ -3,10 +3,7 @@ import joblib
 import pandas as pd
 from pathlib import Path
 
-
 app = Flask(__name__)
-
-
 
 # Obtenir le chemin complet du répertoire actuel
 THIS_FOLDER = Path(__file__).parent.resolve()
@@ -16,11 +13,11 @@ model_path = THIS_FOLDER / 'model_optimized.pkl'
 model = joblib.load(model_path)
 
 # Charger les données d'ID
-id_data_path = THIS_FOLDER / 'id_data.csv'
+id_data_path = THIS_FOLDER / 'id_data10.csv'
 data = pd.read_csv(id_data_path)
 
 # Charger X_train
-xtrain_path = THIS_FOLDER / 'xtrain.csv'
+xtrain_path = THIS_FOLDER / 'xtrain10.csv'
 X_train = pd.read_csv(xtrain_path)
 
 # Fusionner X_train avec les données d'ID
